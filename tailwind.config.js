@@ -1,0 +1,74 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['Poppins', 'Inter', 'sans-serif'],
+      },
+      colors: {
+        // Trust-focused brand (CollegeWale guide)
+        primary: {
+          DEFAULT: '#1E3A8A', // Primary Blue (Trust)
+          dark: '#1E3A8A',
+        },
+        navy: {
+          DEFAULT: '#0F172A', // Dark Navy (Hero)
+          deep: '#0F172A',
+          mid: '#1E3A8A',
+        },
+        cta: {
+          DEFAULT: '#F97316', // Action Orange
+          hover: '#EA580C',
+        },
+        success: '#16A34A', // Verified / Placements
+        neutral: {
+          bg: '#F3F4F6',
+          border: '#E5E7EB',
+          text: '#111827',
+          muted: '#6B7280',
+          'on-dark': '#CBD5E1',
+        },
+      },
+      fontSize: {
+        'hero': ['clamp(2.5rem,5vw,3.5rem)', { lineHeight: '1.1' }],
+        'h2': ['2rem', { lineHeight: '1.2' }],
+        'h3': ['1.5rem', { lineHeight: '1.3' }],
+      },
+      spacing: {
+        'section': '5rem', // 80px
+      },
+      borderRadius: {
+        'btn': '8px',
+      },
+      boxShadow: {
+        'card': '0 10px 25px rgba(0,0,0,0.2)',
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'float-slow': 'float 8s ease-in-out infinite reverse',
+        'fade-up': 'fadeUp 0.6s ease both',
+        'pulse-dot': 'pulseDot 2s infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-12px)' },
+        },
+        fadeUp: {
+          from: { opacity: '0', transform: 'translateY(24px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        pulseDot: {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.5', transform: 'scale(0.8)' },
+        },
+      },
+    },
+  },
+  plugins: [],
+}
