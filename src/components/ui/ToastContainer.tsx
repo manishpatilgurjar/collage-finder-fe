@@ -13,8 +13,7 @@ export default function ToastContainer({ toasts }: ToastContainerProps) {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className="text-white px-5 py-3.5 rounded-lg text-sm font-medium border-l-4 border-cta shadow-xl animate-fade-up max-w-xs"
- style={{ backgroundColor: '#0F172A' }}
+          className="text-white bg-navy px-5 py-3.5 rounded-lg text-sm font-medium border-l-4 border-cta shadow-xl animate-fade-up max-w-xs"
         >
           {toast.message}
         </div>

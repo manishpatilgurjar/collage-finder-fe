@@ -8,7 +8,6 @@ interface NavbarProps {
 const NAV_LINKS = [
   { label: 'Courses', href: '#courses' },
   { label: 'Top Colleges', href: '#colleges' },
-  { label: 'Exams', href: '#exams' },
   { label: 'MBA', href: '#colleges' },
   { label: 'Engineering', href: '#colleges' },
 ];
@@ -18,7 +17,7 @@ export default function Navbar({ onCounsellingClick }: NavbarProps) {
 
   return (
     <>
-      {/* Top announcement bar — #F97316, white text */}
+      {/* Top announcement bar — brand orange, white text */}
       <div className="bg-cta text-white text-center text-xs sm:text-sm py-2 px-4 font-medium">
         Admissions 2025–26 Open | Free Career Counselling Available —{' '}
         <button
@@ -29,10 +28,9 @@ export default function Navbar({ onCounsellingClick }: NavbarProps) {
         </button>
       </div>
 
-      {/* Main Navbar — navy */}
+      {/* Main Navbar — brand dark blue */}
       <nav
-        className="sticky top-0 z-50 border-b backdrop-blur-md"
-        style={{ backgroundColor: 'rgba(15,23,42,0.95)', borderColor: 'rgba(229,231,235,0.2)' }}
+        className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-md bg-navy/95"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <a href="#" className="flex items-center gap-2">
@@ -75,10 +73,7 @@ export default function Navbar({ onCounsellingClick }: NavbarProps) {
         </div>
 
         {mobileOpen && (
-          <div
-            className="md:hidden border-t px-4 pb-4"
-            style={{ backgroundColor: '#0F172A', borderColor: 'rgba(255,255,255,0.1)' }}
-          >
+          <div className="md:hidden border-t border-white/10 px-4 pb-4 bg-navy">
             <ul className="flex flex-col gap-1 pt-2">
               {NAV_LINKS.map((link) => (
                 <li key={link.label}>

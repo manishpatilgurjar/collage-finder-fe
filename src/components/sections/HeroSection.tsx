@@ -1,3 +1,4 @@
+import { Check, GraduationCap, ArrowRight } from 'lucide-react';
 import Button from '../ui/Button';
 
 interface HeroSectionProps {
@@ -26,7 +27,7 @@ export default function HeroSection({
     <section
       className="min-h-[90vh] flex items-center relative overflow-hidden py-20"
       style={{
-        background: 'linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%)',
+        background: 'linear-gradient(135deg, #1E2A45 0%, #2A3B60 100%)',
       }}
     >
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
@@ -63,7 +64,7 @@ export default function HeroSection({
           <p className="text-neutral-on-dark text-sm flex flex-wrap items-center gap-x-4 gap-y-1">
             {TRUST_POINTS.map((point) => (
               <span key={point} className="flex items-center gap-1.5">
-                <span className="text-success">✓</span> {point}
+                <Check className="w-4 h-4 text-success shrink-0" /> {point}
               </span>
             ))}
           </p>
@@ -88,8 +89,8 @@ export default function HeroSection({
             style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)' }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl bg-primary/80">
-                🎓
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-primary/80">
+                <GraduationCap className="w-6 h-6 text-white" />
               </div>
               <div>
                 <p className="font-heading font-bold text-white text-base">IIT Bombay</p>
@@ -103,7 +104,7 @@ export default function HeroSection({
                   className="rounded-lg px-3 py-2 text-neutral-on-dark text-xs flex items-center gap-1.5"
                   style={{ background: 'rgba(255,255,255,0.05)' }}
                 >
-                  <span className="text-cta">→</span> {c}
+                  <ArrowRight className="w-3.5 h-3.5 text-cta shrink-0" /> {c}
                 </div>
               ))}
             </div>

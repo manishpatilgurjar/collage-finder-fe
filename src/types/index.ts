@@ -19,12 +19,20 @@ export interface College {
   category: CourseCategory;
   courses: string[];
   fee: string;
-  rating: number;
+  rating?: number;
   badge: string;
-  emoji: string;
+  emoji?: string;
   nirf?: number;
   placementRate?: number;
   avgPackage?: string;
+  shortName?: string | null;
+  city?: string;
+  stateId?: string | null;
+  cityId?: string | null;
+  description?: string | null;
+  logoUrl?: string | null;
+  coverImageUrl?: string | null;
+  isVerified?: boolean;
 }
 
 export interface Course {
@@ -63,19 +71,44 @@ export interface FilterState {
   category: CourseCategory;
   state: string;
   searchQuery: string;
+  /** Course ID from GET /api/courses (24-char hex). Filter colleges by this course. */
+  courseId?: string | null;
+}
+
+/** Course from GET /api/courses (for dropdown; use _id as courseId when filtering colleges) */
+export interface ApiCourse {
+  _id: string;
+  name: string;
+  slug: string;
 }
 
 // ---------- API / Backend types ----------
 
-/** Full college details (from GET /api/colleges/:id) */
+/** Fee for a single course (from API) */
+export interface CourseFee {
+  course: string;
+  fee: string;
+}
+
+/** Full college details (from GET /api/colleges/:slug) */
 export interface CollegeDetail extends College {
+  slug?: string;
+  feeAmount?: number;
+  feePeriod?: string;
+  /** Fees per course – show when API provides them */
+  courseFees?: CourseFee[];
   description?: string;
   highlights?: string[];
   eligibility?: string;
   facilities?: string[];
   website?: string;
   phone?: string;
+  email?: string;
   address?: string;
+  pinCode?: string;
+  galleryUrls?: string[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Pagination {
@@ -83,7 +116,20 @@ export interface Pagination {
   limit: number;
   total: number;
   totalPages: number;
+  hasNext?: boolean;
+  hasPrev?: boolean;
 }
+
+/** Sort option for college list API */
+export type CollegeListSort =
+  | 'name_asc'
+  | 'name_desc'
+  | 'fee_asc'
+  | 'fee_desc'
+  | 'rating_desc'
+  | 'nirf_asc'
+  | 'newest'
+  | 'relevance';
 
 export interface CollegesListResponse {
   colleges: College[];

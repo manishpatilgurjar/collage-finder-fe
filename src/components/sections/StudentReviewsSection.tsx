@@ -1,3 +1,4 @@
+import { Star } from 'lucide-react';
 import SectionHeader from '../ui/SectionHeader';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
@@ -29,7 +30,11 @@ export default function StudentReviewsSection() {
               key={r.name}
               className="bg-white rounded-xl p-6 border border-neutral-border shadow-sm"
             >
-              <p className="text-success text-sm font-semibold mb-1">★★★★★</p>
+              <div className="flex gap-0.5 mb-1">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
               <p className="text-neutral-text text-sm leading-relaxed mb-4">{r.text}</p>
               <p className="font-heading font-semibold text-neutral-text text-sm">{r.name}</p>
               <p className="text-neutral-muted text-xs">{r.college}</p>

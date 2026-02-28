@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Phone } from 'lucide-react';
+import { Phone, Check, Star, GraduationCap, Award } from 'lucide-react';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 interface CTASectionProps {
@@ -61,8 +61,10 @@ export default function CTASection({ onSubmit }: CTASectionProps) {
           </button>
         </div>
 
-        <p className="text-xs text-neutral-muted mt-4">
-          ✓ 100% Free &nbsp;&nbsp; ✓ No Spam &nbsp;&nbsp; ✓ Response within 24 hrs
+        <p className="text-xs text-neutral-muted mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+          <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5 text-success" /> 100% Free</span>
+          <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5 text-success" /> No Spam</span>
+          <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5 text-success" /> Response within 24 hrs</span>
         </p>
 
         <p className="text-xs text-neutral-muted mt-3 max-w-sm mx-auto">
@@ -71,13 +73,13 @@ export default function CTASection({ onSubmit }: CTASectionProps) {
 
         <div className="flex justify-center gap-6 mt-8 flex-wrap">
           {[
-            { emoji: '⭐', text: '4.8/5 Rating' },
-            { emoji: '👨‍🎓', text: '2 Lakh+ Students' },
-            { emoji: '🏆', text: '15+ Years Experience' },
-          ].map((item) => (
-            <div key={item.text} className="flex items-center gap-2 text-sm text-neutral-muted font-medium">
-              <span>{item.emoji}</span>
-              <span>{item.text}</span>
+            { Icon: Star, text: '4.8/5 Rating' },
+            { Icon: GraduationCap, text: '2 Lakh+ Students' },
+            { Icon: Award, text: '15+ Years Experience' },
+          ].map(({ Icon, text }) => (
+            <div key={text} className="flex items-center gap-2 text-sm text-neutral-muted font-medium">
+              <Icon className="w-5 h-5 text-cta shrink-0" />
+              <span>{text}</span>
             </div>
           ))}
         </div>

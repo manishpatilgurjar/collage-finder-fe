@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import HeroSection from './components/sections/HeroSection';
@@ -8,17 +9,31 @@ import CoursesSection from './components/sections/CoursesSection';
 import StudentReviewsSection from './components/sections/StudentReviewsSection';
 import PlacementInsightsSection from './components/sections/PlacementInsightsSection';
 import WhySection from './components/sections/WhySection';
-import ExamsSection from './components/sections/ExamsSection';
 import CTASection from './components/sections/CTASection';
 import FAQSection from './components/sections/FAQSection';
 import ToastContainer from './components/ui/ToastContainer';
-import { useFilter } from './hooks/useFilter';
+import { useColleges } from './hooks/useColleges';
+import { useCourses } from './hooks/useCourses';
 import { useToast } from './hooks/useToast';
 import { CourseCategory } from './types';
 
 export default function App() {
-  const { filters, filteredColleges, setCategory, setState, setSearchQuery, resetFilters } =
-    useFilter();
+  const navigate = useNavigate();
+  const { courses } = useCourses();
+  const {
+    colleges,
+    pagination,
+    loading,
+    error,
+    filters,
+    setCategory,
+    setState,
+    setSearchQuery,
+    setCourseId,
+    resetFilters,
+    loadMore,
+    hasNextPage,
+  } = useColleges();
   const { toasts, showToast } = useToast();
 
   const scrollToColleges = () => {
@@ -40,8 +55,8 @@ export default function App() {
     showToast(`Application started for ${name}. Check your email for next steps.`);
   };
 
-  const handleView = (name: string) => {
-    showToast(`Loading details for ${name}...`);
+  const handleView = (slug: string) => {
+    navigate(`/college/${slug}`);
   };
 
   const handleCTASubmit = (phone: string) => {
@@ -72,15 +87,28 @@ export default function App() {
             scrollToColleges();
           }}
           onSearch={handleSearch}
+          courses={courses}
+          selectedCourseId={filters.courseId ?? null}
+          onCourseChange={(id) => {
+            setCourseId(id);
+            scrollToColleges();
+          }}
         />
 
         <CollegesSection
-          colleges={filteredColleges}
+          colleges={colleges}
           filters={filters}
+          loading={loading}
+          error={error}
+          pagination={pagination}
+          hasNextPage={hasNextPage}
+          courses={courses}
           onCategoryChange={setCategory}
+          onCourseChange={setCourseId}
           onStateChange={setState}
           onApply={handleApply}
           onView={handleView}
+          onLoadMore={loadMore}
         />
 
         <CoursesSection onCourseSelect={handleCourseSelect} />
@@ -90,8 +118,6 @@ export default function App() {
         <PlacementInsightsSection />
 
         <WhySection />
-
-        <ExamsSection />
 
         <CTASection onSubmit={handleCTASubmit} />
 

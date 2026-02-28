@@ -11,23 +11,23 @@ export default {
         heading: ['Poppins', 'Inter', 'sans-serif'],
       },
       colors: {
-        // Trust-focused brand (CollegeWale guide)
+        // College Eduversity logo palette
         primary: {
-          DEFAULT: '#1E3A8A', // Primary Blue (Trust)
-          dark: '#1E3A8A',
+          DEFAULT: '#2A3B60', // Dark blue (logo text / laurel)
+          dark: '#1E2A45',
         },
         navy: {
-          DEFAULT: '#0F172A', // Dark Navy (Hero)
-          deep: '#0F172A',
-          mid: '#1E3A8A',
+          DEFAULT: '#1E2A45', // Hero / dark sections
+          deep: '#151F33',
+          mid: '#2A3B60',
         },
         cta: {
-          DEFAULT: '#F97316', // Action Orange
-          hover: '#EA580C',
+          DEFAULT: '#EB6A2D', // Orange (logo accent)
+          hover: '#D95A22',
         },
         success: '#16A34A', // Verified / Placements
         neutral: {
-          bg: '#F3F4F6',
+          bg: '#F5F5F5', // Light grey (logo background)
           border: '#E5E7EB',
           text: '#111827',
           muted: '#6B7280',

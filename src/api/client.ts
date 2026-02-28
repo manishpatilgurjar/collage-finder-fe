@@ -1,4 +1,5 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+// Use env or default to localhost:3001 so API is called when backend runs there
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3001';
 
 export interface ApiError {
   success: false;
@@ -32,7 +33,10 @@ async function request<T>(
   return data as T;
 }
 
-export function get<T>(path: string, params?: Record<string, string | number | undefined>): Promise<T> {
+export function get<T>(
+  path: string,
+  params?: Record<string, string | number | boolean | undefined>
+): Promise<T> {
   const search = params
     ? '?' +
       Object.entries(params)

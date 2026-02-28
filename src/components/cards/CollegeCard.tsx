@@ -1,11 +1,11 @@
-import { MapPin, Star } from 'lucide-react';
+import { MapPin, Building2 } from 'lucide-react';
 import { College } from '../../types';
 import Badge from '../ui/Badge';
 
 interface CollegeCardProps {
   college: College;
   onApply: (name: string) => void;
-  onView: (name: string) => void;
+  onView: (slug: string) => void;
 }
 
 export default function CollegeCard({
@@ -16,31 +16,16 @@ export default function CollegeCard({
   return (
     <div
       className="bg-white rounded-2xl overflow-hidden border border-neutral-border hover:border-cta hover:-translate-y-2 hover:shadow-card transition-all duration-300 cursor-pointer group"
-      onClick={() => onView(college.name)}
+      onClick={() => onView(college.id)}
     >
       <div
         className="h-44 bg-gradient-to-br from-navy to-navy-mid flex items-center justify-center relative overflow-hidden"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(30,58,138,0.2),transparent_60%)]" />
-        <span className="text-6xl opacity-30 group-hover:opacity-50 group-hover:scale-110 transition-all duration-500">
-          {college.emoji}
-        </span>
+        <Building2 className="w-14 h-14 text-white/30 group-hover:text-white/50 group-hover:scale-110 transition-all duration-500" />
         <div className="absolute top-3 right-3">
           <Badge variant="cta">{college.badge}</Badge>
         </div>
-        <div className="absolute top-3 left-3">
-          <Badge variant="dark">
-            <span className="flex items-center gap-1">
-              <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-              {college.rating}
-            </span>
-          </Badge>
-        </div>
-        {college.placementRate && (
-          <div className="absolute bottom-3 right-3">
-            <Badge variant="success">{college.placementRate}% Placed</Badge>
-          </div>
-        )}
       </div>
 
       <div className="p-4">
@@ -68,12 +53,6 @@ export default function CollegeCard({
             <p className="text-[10px] text-neutral-muted uppercase tracking-wide">Fees</p>
             <p className="text-sm font-bold text-neutral-text">{college.fee}</p>
           </div>
-          {college.avgPackage && (
-            <div className="text-right">
-              <p className="text-[10px] text-neutral-muted uppercase tracking-wide">Avg Package</p>
-              <p className="text-sm font-bold text-success">{college.avgPackage}</p>
-            </div>
-          )}
           <button
             onClick={(e) => {
               e.stopPropagation();

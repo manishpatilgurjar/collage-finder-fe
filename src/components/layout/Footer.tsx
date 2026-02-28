@@ -1,4 +1,4 @@
-import { GraduationCap, Mail } from 'lucide-react';
+import { GraduationCap, Mail, Share2 } from 'lucide-react';
 
 const SUPPORT_EMAIL = 'support@collegewale.in';
 
@@ -19,7 +19,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="text-neutral-on-dark" style={{ backgroundColor: '#0F172A' }}>
+    <footer className="text-neutral-on-dark bg-navy">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-white/10">
           <div>
@@ -40,15 +40,15 @@ export default function Footer() {
                 {SUPPORT_EMAIL}
               </a>
             </div>
-            <div className="flex gap-3 mt-4 text-lg">
-              {['Facebook', 'Instagram', 'LinkedIn', 'YouTube'].map((label, i) => (
+            <div className="flex gap-3 mt-4">
+              {['Facebook', 'Instagram', 'LinkedIn', 'YouTube'].map((label) => (
                 <a
                   key={label}
                   href="#"
-                  className="text-neutral-on-dark hover:text-white transition-colors"
+                  className="text-neutral-on-dark hover:text-cta transition-colors p-1.5 rounded-lg hover:bg-white/5"
                   aria-label={label}
                 >
-                  {['📘', '📸', '🐦', '▶️'][i]}
+                  <Share2 className="w-5 h-5" />
                 </a>
               ))}
             </div>

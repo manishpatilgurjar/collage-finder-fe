@@ -1,10 +1,11 @@
+import { Sparkles, CheckCircle, Users, BarChart3, ArrowRight } from 'lucide-react';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 const FEATURES = [
-  { icon: '🤖', title: 'AI-Powered Matching', desc: 'Smart recommendations based on your marks, interests and budget' },
-  { icon: '✅', title: 'Verified Data', desc: 'All fees, cutoffs and placement data verified directly from colleges' },
-  { icon: '👨‍💼', title: 'Expert Counsellors', desc: '15+ years experienced counsellors available for free consultation' },
-  { icon: '📊', title: 'College Comparisons', desc: 'Compare colleges side-by-side on fees, placements, campus & more' },
+  { Icon: Sparkles, title: 'Smart Matching', desc: 'Recommendations based on your marks, interests and budget' },
+  { Icon: CheckCircle, title: 'Verified Data', desc: 'All fees, cutoffs and placement data verified directly from colleges' },
+  { Icon: Users, title: 'Expert Counsellors', desc: '15+ years experienced counsellors available for free consultation' },
+  { Icon: BarChart3, title: 'College Comparisons', desc: 'Compare colleges side-by-side on fees, placements, campus & more' },
 ];
 
 const STATS = [
@@ -20,7 +21,7 @@ export default function WhySection() {
   return (
     <section
       className="py-20 px-4 sm:px-6 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%)' }}
+      style={{ background: 'linear-gradient(135deg, #1E2A45 0%, #2A3B60 100%)' }}
     >
       <div
         ref={ref}
@@ -43,15 +44,17 @@ export default function WhySection() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {FEATURES.map((f) => (
+            {FEATURES.map(({ Icon, title, desc }) => (
               <div
-                key={f.title}
+                key={title}
                 className="rounded-xl p-4 hover:-translate-y-1 transition-all border border-white/10"
                 style={{ background: 'rgba(255,255,255,0.05)' }}
               >
-                <p className="text-2xl mb-2">{f.icon}</p>
-                <p className="font-heading font-semibold text-white text-sm mb-1">{f.title}</p>
-                <p className="text-neutral-on-dark/70 text-xs leading-relaxed">{f.desc}</p>
+                <div className="w-10 h-10 rounded-lg bg-cta/20 flex items-center justify-center mb-2">
+                  <Icon className="w-5 h-5 text-cta" />
+                </div>
+                <p className="font-heading font-semibold text-white text-sm mb-1">{title}</p>
+                <p className="text-neutral-on-dark/70 text-xs leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
@@ -62,7 +65,7 @@ export default function WhySection() {
             }
             className="mt-8 bg-cta hover:bg-cta-hover text-white py-3 px-7 rounded-btn font-bold text-sm inline-flex items-center gap-2 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-cta/30"
           >
-            Get Free Counselling →
+            Get Free Counselling <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 

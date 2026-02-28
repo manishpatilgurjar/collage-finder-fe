@@ -1,19 +1,36 @@
-import { College, CollegeDetail, CourseCategory } from '../types';
+import { College, CollegeDetail, CourseCategory, CollegeListSort } from '../types';
 import { get } from './client';
 
+/** Query params for GET /api/colleges (Consumer API) */
 export interface CollegesListParams {
-  category?: CourseCategory | string;
-  state?: string;
-  search?: string;
   page?: number;
   limit?: number;
+  category?: CourseCategory | string;
+  /** Course ObjectId from GET /api/courses – filter colleges that offer this course */
+  courseId?: string | null;
+  state?: string;
+  stateId?: string;
+  city?: string;
+  cityId?: string;
+  search?: string;
+  sort?: CollegeListSort;
+  verified?: boolean;
+}
+
+export interface CollegesListPagination {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
 }
 
 interface CollegesListApiResponse {
   success: boolean;
   data?: {
     colleges: College[];
-    pagination: { page: number; limit: number; total: number; totalPages: number };
+    pagination: CollegesListPagination;
   };
 }
 
@@ -22,20 +39,31 @@ interface CollegeDetailApiResponse {
   data?: CollegeDetail;
 }
 
-/** Fetch colleges list from backend. Returns empty array if API is not configured or fails. */
-export async function fetchCollegesList(
-  params: CollegesListParams = {}
-): Promise<{ colleges: College[]; pagination?: { page: number; limit: number; total: number; totalPages: number } }> {
-  const base = import.meta.env.VITE_API_BASE_URL;
+/**
+ * Fetch college list from Consumer API (GET /api/colleges).
+ * Supports filters, search, sort, pagination.
+ * Returns empty list when API is not configured or on failure.
+ */
+export async function fetchCollegesList(params: CollegesListParams = {}): Promise<{
+  colleges: College[];
+  pagination?: CollegesListPagination;
+}> {
+  const base = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3001';
   if (!base) return { colleges: [] };
 
   try {
-    const q: Record<string, string | number> = {};
+    const q: Record<string, string | number | boolean> = {};
+    if (params.page != null) q.page = params.page;
+    if (params.limit != null) q.limit = params.limit;
     if (params.category && params.category !== 'All') q.category = params.category;
+    if (params.courseId) q.courseId = params.courseId;
     if (params.state && params.state !== 'All India') q.state = params.state;
-    if (params.search) q.search = params.search;
-    if (params.page) q.page = params.page;
-    if (params.limit) q.limit = params.limit;
+    if (params.stateId) q.stateId = params.stateId;
+    if (params.city) q.city = params.city;
+    if (params.cityId) q.cityId = params.cityId;
+    if (params.search?.trim()) q.search = params.search.trim();
+    if (params.sort) q.sort = params.sort;
+    if (params.verified === true || params.verified === false) q.verified = params.verified;
 
     const res = await get<CollegesListApiResponse>('/api/colleges', q);
     if (res.success && res.data) {
@@ -50,16 +78,24 @@ export async function fetchCollegesList(
   }
 }
 
-/** Fetch single college details by id. Returns null if not found or API unavailable. */
-export async function fetchCollegeById(id: string): Promise<CollegeDetail | null> {
-  const base = import.meta.env.VITE_API_BASE_URL;
+/**
+ * Fetch single college details by slug (GET /api/colleges/:slug).
+ * Returns null when not found or API unavailable.
+ */
+export async function fetchCollegeBySlug(slug: string): Promise<CollegeDetail | null> {
+  const base = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3001';
   if (!base) return null;
 
   try {
-    const res = await get<CollegeDetailApiResponse>(`/api/colleges/${encodeURIComponent(id)}`);
+    const res = await get<CollegeDetailApiResponse>(`/api/colleges/${encodeURIComponent(slug)}`);
     if (res.success && res.data) return res.data;
     return null;
-  } catch {
+  } catch (err: unknown) {
+    const status = (err as { status?: number })?.status;
+    if (status === 404) return null;
     return null;
   }
 }
+
+/** Alias for fetchCollegeBySlug (id in list response is the slug) */
+export const fetchCollegeById = fetchCollegeBySlug;
